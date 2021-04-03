@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Persistent Files ###
+google-services.json
+database.db
