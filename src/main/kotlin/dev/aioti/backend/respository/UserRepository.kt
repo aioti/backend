@@ -1,12 +1,6 @@
 package dev.aioti.backend.respository
 
-import dev.aioti.backend.dao.UserDAO
 import dev.aioti.backend.entity.User
-import org.springframework.stereotype.Repository
+import org.springframework.data.jpa.repository.JpaRepository
 
-@Repository
-class UserRepository(
-    val dao: UserDAO
-) {
-    fun register(user: User): User = dao.insert(user)
-}
+interface UserRepository: JpaRepository<User?, Long?>
