@@ -1,6 +1,6 @@
 package dev.aioti.backend.entity
 
-import dev.aioti.backend.dto.request.CreateHouseRequestDTO
+import dev.aioti.backend.dto.request.HouseRequestDTO
 import javax.persistence.*
 
 @Entity
@@ -12,10 +12,10 @@ class House(
     val id: Long?,
 
     @Column(name = "NAME_HOUSE")
-    val name: String,
+    var name: String,
 
     @Column(name = "LOCATION_HOUSE")
-    val location: String?,
+    var location: String?,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
@@ -28,11 +28,20 @@ class House(
     @JoinColumn(name = "ID_DEVICE")
     val devices: MutableSet<Device>
 ) {
-    constructor(createHouseRequestDTO: CreateHouseRequestDTO, user: User) : this(
+    constructor(houseRequestDTO: HouseRequestDTO, user: User) : this(
         null,
-        createHouseRequestDTO.name,
-        createHouseRequestDTO.location,
+        houseRequestDTO.name,
+        houseRequestDTO.location,
         user,
+        mutableSetOf(),
+        mutableSetOf()
+    )
+
+    constructor(requestDTO: HouseRequestDTO) : this(
+        null,
+        requestDTO.name,
+        requestDTO.location,
+        User(null, "", "", null, null),
         mutableSetOf(),
         mutableSetOf()
     )

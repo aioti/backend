@@ -1,7 +1,7 @@
 package dev.aioti.backend.controller
 
 import dev.aioti.backend.dto.CurrentUserDTO
-import dev.aioti.backend.dto.request.CreateHouseRequestDTO
+import dev.aioti.backend.dto.request.HouseRequestDTO
 import dev.aioti.backend.entity.House
 import dev.aioti.backend.service.HouseService
 import org.springframework.http.HttpStatus
@@ -24,17 +24,25 @@ class HouseController(
         ResponseEntity.ok(service.house(id, currentUserDTO.user))
 
     @PostMapping
-    fun create(@RequestBody requestDTO: CreateHouseRequestDTO) =
+    fun create(@RequestBody requestDTO: HouseRequestDTO) =
         ResponseEntity
             .status(HttpStatus.CREATED)
             .body(service.create(House(requestDTO, currentUserDTO.user)))
 
-    @PostMapping("/permit")
-    fun permitUser(@RequestParam houseId: Long, @RequestParam userId: Long) =
+    @PatchMapping("/{id}")
+    fun update(@RequestBody requestDTO: HouseRequestDTO, @PathVariable id: Long) =
+        ResponseEntity.ok(service.update(id, House(requestDTO), currentUserDTO.user))
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Long) =
+        ResponseEntity.ok(service.delete(id, currentUserDTO.user))
+
+    @PutMapping("/{houseId}/user/{userId}")
+    fun permitUser(@PathVariable houseId: Long, @PathVariable userId: Long) =
         ResponseEntity.ok(service.permitUser(houseId, userId, currentUserDTO.user))
 
-    @DeleteMapping("/permit")
-    fun revokeUser(@RequestParam houseId: Long, @RequestParam userId: Long) =
+    @DeleteMapping("/{houseId}/user/{userId}")
+    fun revokeUser(@PathVariable houseId: Long, @PathVariable userId: Long) =
         ResponseEntity.ok(service.revokeUser(houseId, userId, currentUserDTO.user))
 
     @DeleteMapping("/{id}")

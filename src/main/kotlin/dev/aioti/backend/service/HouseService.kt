@@ -17,6 +17,7 @@ class HouseService(
     fun create(house: House) = houseRepository.save(house)
     fun house(id: Long, user: User) =
         houseRepository.findIfPermitted(id, user) ?: throw NotFoundException("Casa não encontrada")
+
     fun delete(id: Long, user: User) = houseRepository.removeByIdAndUser(id, user)
 
     fun permitUser(houseId: Long, userId: Long, user: User) {
@@ -47,5 +48,15 @@ class HouseService(
             throw NotFoundException("Usuário não encontrado")
 
         return Pair(house, permittedUser.get())
+    }
+
+    fun update(id: Long, houseParams: House, user: User): House {
+        val house = houseRepository.findByIdAndUser(id, user)
+            ?: throw NotFoundException("Casa não encontrada")
+
+        house.name = houseParams.name
+        house.location = houseParams.location
+
+        return houseRepository.save(house)
     }
 }
