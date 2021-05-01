@@ -17,10 +17,8 @@ class Device(
     val uuid: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USER")
     val user: User,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_HOUSE")
-    val area: House?
+    val house: House?
 )
