@@ -33,4 +33,11 @@ class User(
         null,
         null
     )
+
+    override fun equals(other: Any?) = (other is User && other.id == id)
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + email.hashCode()
+        return result
+    }
 }
