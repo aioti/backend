@@ -3,6 +3,7 @@ package dev.aioti.backend.service
 import dev.aioti.backend.entity.House
 import dev.aioti.backend.entity.User
 import dev.aioti.backend.exception.NotFoundException
+import dev.aioti.backend.respository.DeviceRepository
 import dev.aioti.backend.respository.HouseRepository
 import dev.aioti.backend.respository.UserRepository
 import org.springframework.stereotype.Service
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Service
 @Service
 class HouseService(
     private val houseRepository: HouseRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val deviceRepository: DeviceRepository
 ) {
 
     fun houses(user: User) = houseRepository.findByUser(user)
@@ -58,5 +60,29 @@ class HouseService(
         house.location = houseParams.location
 
         return houseRepository.save(house)
+    }
+
+    fun addDevice(houseId: Long, deviceId: Long, user: User) {
+        val house = houseRepository.findByIdAndUser(houseId, user)
+            ?: throw NotFoundException("Casa não encontrada")
+
+        val device = deviceRepository.findByIdAndUser(deviceId, user)
+            ?: throw NotFoundException("Dispositivo não encontrado")
+
+        house.devices.add(device)
+
+        houseRepository.save(house)
+    }
+
+    fun removeDevice(houseId: Long, deviceId: Long, user: User) {
+        val house = houseRepository.findByIdAndUser(houseId, user)
+            ?: throw NotFoundException("Casa não encontrada")
+
+        val device = deviceRepository.findByIdAndUser(deviceId, user)
+            ?: throw NotFoundException("Dispositivo não encontrado")
+
+        house.devices.remove(device)
+
+        houseRepository.save(house)
     }
 }
