@@ -1,4 +1,4 @@
-package dev.aioti.backend.interceptor
+package dev.aioti.backend.config.filter
 
 import com.google.gson.GsonBuilder
 import io.grpc.internal.JsonParser
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class LoggingInterceptor : OncePerRequestFilter() {
+class LoggingFilter : OncePerRequestFilter() {
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
 

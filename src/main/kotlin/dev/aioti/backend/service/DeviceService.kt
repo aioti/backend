@@ -5,14 +5,14 @@ import dev.aioti.backend.dto.request.DeviceRegisterRequestDTO
 import dev.aioti.backend.entity.Device
 import dev.aioti.backend.exception.NotFoundException
 import dev.aioti.backend.respository.DeviceRepository
-import dev.aioti.backend.respository.DeviceTypeRepository
+import dev.aioti.backend.respository.DeviceCategoryRepository
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
 class DeviceService(
     val deviceRepository: DeviceRepository,
-    val categoryRepository: DeviceTypeRepository,
+    val categoryRepository: DeviceCategoryRepository,
     private val currentUserDTO: CurrentUserDTO
 ) {
     fun create(requestDTO: DeviceRegisterRequestDTO): Device {

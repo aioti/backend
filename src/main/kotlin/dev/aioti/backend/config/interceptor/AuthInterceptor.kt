@@ -1,4 +1,4 @@
-package dev.aioti.backend.interceptor
+package dev.aioti.backend.config.interceptor
 
 import dev.aioti.backend.dto.CurrentUserDTO
 import dev.aioti.backend.entity.User

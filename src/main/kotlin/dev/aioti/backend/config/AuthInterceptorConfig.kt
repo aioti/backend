@@ -1,8 +1,7 @@
 package dev.aioti.backend.config
 
 import dev.aioti.backend.dto.CurrentUserDTO
-import dev.aioti.backend.interceptor.AuthInterceptor
-import org.aopalliance.intercept.Interceptor
+import dev.aioti.backend.config.interceptor.AuthInterceptor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Scope
