@@ -1,5 +1,6 @@
 package dev.aioti.backend.service
 
+import dev.aioti.backend.dto.request.HouseRequestDTO
 import dev.aioti.backend.entity.House
 import dev.aioti.backend.entity.User
 import dev.aioti.backend.exception.NotFoundException
@@ -16,7 +17,7 @@ class HouseService(
 ) {
 
     fun houses(user: User) = houseRepository.findByUser(user)
-    fun create(house: House) = houseRepository.save(house)
+    fun create(house: HouseRequestDTO, user: User) = houseRepository.save(House(house, user))
     fun house(id: Long, user: User) =
         houseRepository.findIfPermitted(id, user) ?: throw NotFoundException("Casa não encontrada")
 
@@ -52,7 +53,7 @@ class HouseService(
         return Pair(house, permittedUser.get())
     }
 
-    fun update(id: Long, houseParams: House, user: User): House {
+    fun update(id: Long, houseParams: HouseRequestDTO, user: User): House {
         val house = houseRepository.findByIdAndUser(id, user)
             ?: throw NotFoundException("Casa não encontrada")
 

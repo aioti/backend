@@ -2,7 +2,6 @@ package dev.aioti.backend.controller
 
 import dev.aioti.backend.dto.CurrentUserDTO
 import dev.aioti.backend.dto.request.HouseRequestDTO
-import dev.aioti.backend.entity.House
 import dev.aioti.backend.service.HouseService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -27,11 +26,11 @@ class HouseController(
     fun create(@RequestBody requestDTO: HouseRequestDTO) =
         ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(service.create(House(requestDTO, currentUserDTO.user)))
+            .body(service.create(requestDTO, currentUserDTO.user))
 
     @PatchMapping("/{id}")
     fun update(@RequestBody requestDTO: HouseRequestDTO, @PathVariable id: Long) =
-        ResponseEntity.ok(service.update(id, House(requestDTO), currentUserDTO.user))
+        ResponseEntity.ok(service.update(id, requestDTO, currentUserDTO.user))
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long) =
