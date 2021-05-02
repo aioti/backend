@@ -33,5 +33,5 @@ build/
 .vscode/
 
 ### Persistent Files ###
-google-services.json
+admin-credentials.json
 database.db
