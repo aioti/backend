@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
+import org.springframework.util.AntPathMatcher
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
@@ -22,6 +23,8 @@ class AuthInterceptorConfig: WebMvcConfigurer {
     fun authInterceptorProvider() = AuthInterceptor()
 
     override fun addInterceptors(registry: InterceptorRegistry) {
-        registry.addInterceptor(authInterceptorProvider())
+        registry
+            .addInterceptor(authInterceptorProvider())
+            .excludePathPatterns("/api/*/user/register")
     }
 }

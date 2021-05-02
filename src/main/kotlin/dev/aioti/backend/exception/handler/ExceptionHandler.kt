@@ -2,6 +2,7 @@ package dev.aioti.backend.exception.handler
 
 import dev.aioti.backend.dto.response.ProblemDetailResponseDTO
 import dev.aioti.backend.exception.AiotiException
+import dev.aioti.backend.exception.BadRequestException
 import dev.aioti.backend.exception.NotFoundException
 import dev.aioti.backend.exception.UnauthorizedException
 import org.hibernate.engine.jdbc.spi.SqlExceptionHelper
@@ -23,7 +24,8 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(
         value = [
             NotFoundException::class,
-            UnauthorizedException::class
+            UnauthorizedException::class,
+            BadRequestException::class
         ]
     )
     fun handle(exception: AiotiException) = ResponseEntity
