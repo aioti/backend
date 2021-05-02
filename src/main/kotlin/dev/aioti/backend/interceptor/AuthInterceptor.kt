@@ -17,7 +17,7 @@ class AuthInterceptor: HandlerInterceptor {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
 
         currentUserDTO.user = User(
-            1,
+            22,
             "Gabriel Sancho",
             "gabriel.sancho13@gmail.com",
             null,

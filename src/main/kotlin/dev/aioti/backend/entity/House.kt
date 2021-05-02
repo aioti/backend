@@ -25,7 +25,6 @@ class House(
     val usersPermitted: MutableSet<User>,
 
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "ID_DEVICE")
     val devices: MutableSet<Device>
 ) {
     constructor(houseRequestDTO: HouseRequestDTO, user: User) : this(

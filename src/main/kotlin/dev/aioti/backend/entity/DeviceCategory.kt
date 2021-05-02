@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "TB_DEVICE_TYPE")
-class DeviceType(
+class DeviceCategory(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID_DEVICE_TYPE")
@@ -22,4 +22,6 @@ class DeviceType(
         deviceTypeRegisterDTO.name,
         deviceTypeRegisterDTO.description
     )
+
+    constructor(id: Long?) : this(id, null, null)
 }
