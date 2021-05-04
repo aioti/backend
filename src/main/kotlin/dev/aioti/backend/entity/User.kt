@@ -1,5 +1,6 @@
 package dev.aioti.backend.entity
 
+import com.google.firebase.auth.FirebaseToken
 import dev.aioti.backend.dto.request.UserRegisterRequestDTO
 import javax.persistence.*
 
@@ -15,10 +16,10 @@ class User(
     val id: Long?,
 
     @Column(name = "NAME_USER")
-    val name: String,
+    var name: String,
 
     @Column(name = "EMAIL_USER")
-    val email: String,
+    var email: String,
 
     @Column(name = "ISSUER_USER")
     val issuer: String?,
@@ -33,4 +34,19 @@ class User(
         null,
         null
     )
+
+    constructor(firebaseUser: FirebaseToken) : this(
+        null,
+        firebaseUser.name ?: "",
+        firebaseUser.email,
+        firebaseUser.issuer,
+        firebaseUser.isEmailVerified
+    )
+
+    override fun equals(other: Any?) = (other is User && other.id == id)
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + email.hashCode()
+        return result
+    }
 }
