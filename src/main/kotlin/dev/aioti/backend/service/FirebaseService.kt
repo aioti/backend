@@ -1,6 +1,7 @@
 package dev.aioti.backend.service
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseToken
 import dev.aioti.backend.entity.User
 import dev.aioti.backend.exception.UnauthorizedException
@@ -14,9 +15,13 @@ class FirebaseService {
     lateinit var userService: UserService
 
     fun verifyToken(token: String): FirebaseToken {
-        val firebase = FirebaseAuth.getInstance()
-        return firebase.verifyIdToken(token)
-            ?: throw UnauthorizedException("Token não é válido")
+        try {
+            val firebase = FirebaseAuth.getInstance()
+            return firebase.verifyIdToken(token)
+                ?: throw UnauthorizedException("Token não é válido")
+        } catch (exception: FirebaseAuthException) {
+            throw UnauthorizedException("Token não é válido")
+        }
     }
 
     fun retrieveUserFromStringToken(token: String): User {
