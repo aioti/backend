@@ -16,7 +16,7 @@ class FirebaseConfig {
     @Bean
     fun firebaseInit() {
 
-        val file = FileInputStream("./admin-credentials.json")
+        val file = FileInputStream("./google-credentials.json")
 
         val credentials = GoogleCredentials.fromStream(file)
 
