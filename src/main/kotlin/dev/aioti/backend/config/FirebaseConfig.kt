@@ -15,17 +15,8 @@ class FirebaseConfig {
     @Primary
     @Bean
     fun firebaseInit() {
-
-        val file = FileInputStream("./admin-credentials.json")
-
-        val credentials = GoogleCredentials.fromStream(file)
-
-        val firebaseOptions = FirebaseOptions.builder()
-            .setCredentials(credentials)
-            .build()
-
         if (FirebaseApp.getApps().isEmpty())
-            FirebaseApp.initializeApp(firebaseOptions)
+            FirebaseApp.initializeApp()
     }
 
 }
