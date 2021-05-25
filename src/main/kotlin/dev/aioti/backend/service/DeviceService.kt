@@ -25,7 +25,7 @@ class DeviceService(
             requestDTO.name,
             category,
             user,
-            UUID.randomUUID().toString(),
+            requestDTO.uuid,
             null
         )
 
