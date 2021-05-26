@@ -21,10 +21,10 @@ class House(
     @JoinColumn(name = "ID_USER")
     val user: User,
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH])
     val usersPermitted: MutableSet<User>,
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH])
     val devices: MutableSet<Device>
 ) {
     constructor(houseRequestDTO: HouseRequestDTO, user: User) : this(

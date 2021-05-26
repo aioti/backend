@@ -23,7 +23,7 @@ class Device(
     @Column(name = "UUID_DEVICE")
     val uuid: String?,
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH])
     var house: House?
 ) {
     constructor(requestDTO: DeviceRegisterRequestDTO, user: User) : this(
