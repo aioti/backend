@@ -28,5 +28,5 @@ interface HouseRepository : JpaRepository<House?, Long?> {
 
     fun findByIdAndUser(id: Long, user: User): House?
 
-    fun findByDevices(devices: MutableSet<Device>): List<House>
+    fun findAllByDevicesContaining(devices: MutableSet<Device>): List<House>
 }
