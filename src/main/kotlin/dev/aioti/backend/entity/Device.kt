@@ -27,6 +27,7 @@ class Device(
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "ID_HOUSE")
     var house: House?
 ) {
     constructor(requestDTO: DeviceRegisterRequestDTO, user: User) : this(

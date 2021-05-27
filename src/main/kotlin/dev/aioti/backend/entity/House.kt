@@ -1,6 +1,8 @@
 package dev.aioti.backend.entity
 
 import dev.aioti.backend.dto.request.HouseRequestDTO
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*
 
 @Entity
@@ -24,7 +26,8 @@ class House(
     @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val usersPermitted: MutableSet<User>,
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = false)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = false, mappedBy = "TB_DEVICE")
     val devices: MutableSet<Device>
 ) {
     constructor(houseRequestDTO: HouseRequestDTO, user: User) : this(
