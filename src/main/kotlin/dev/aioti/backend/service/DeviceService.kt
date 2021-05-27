@@ -55,9 +55,7 @@ class DeviceService(
     }
 
     fun delete(id: Long, user: User) {
-        val device = deviceRepository.findByIdAndUser(id, user)!!
-
-        val houses = houseRepository.findAllByDevicesContaining(mutableSetOf(device))
+        val houses = houseRepository.findByDeviceId(id)
 
         houses.forEach { house ->
             house.devices.removeAll { device -> device.id == id }

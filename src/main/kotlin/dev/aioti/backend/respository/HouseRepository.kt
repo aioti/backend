@@ -28,5 +28,6 @@ interface HouseRepository : JpaRepository<House?, Long?> {
 
     fun findByIdAndUser(id: Long, user: User): House?
 
-    fun findAllByDevicesContaining(devices: MutableSet<Device>): List<House>
+    @Query("SELECT h FROM House h JOIN FETCH h.devices d WHERE d.id = ?1")
+    fun findByDeviceId(deviceId: Long): List<House>
 }
