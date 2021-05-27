@@ -27,7 +27,7 @@ class House(
     val usersPermitted: MutableSet<User>,
 
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = false, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "id")
     val devices: MutableSet<Device>
 ) {
     constructor(houseRequestDTO: HouseRequestDTO, user: User) : this(
