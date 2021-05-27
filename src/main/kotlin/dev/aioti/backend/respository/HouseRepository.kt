@@ -1,6 +1,7 @@
 package dev.aioti.backend.respository
 
 import dev.aioti.backend.dto.response.HouseResponseDTO
+import dev.aioti.backend.entity.Device
 import dev.aioti.backend.entity.House
 import dev.aioti.backend.entity.User
 import org.springframework.data.jpa.repository.JpaRepository
@@ -26,4 +27,6 @@ interface HouseRepository : JpaRepository<House?, Long?> {
     fun removeByIdAndUser(id: Long, user: User)
 
     fun findByIdAndUser(id: Long, user: User): House?
+
+    fun findByDevices(devices: MutableSet<Device>): List<House>
 }
