@@ -26,8 +26,11 @@ class House(
     @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val usersPermitted: MutableSet<User>,
 
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "id")
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        cascade = [CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH],
+        orphanRemoval = false
+    )
     val devices: MutableSet<Device>
 ) {
     constructor(houseRequestDTO: HouseRequestDTO, user: User) : this(
