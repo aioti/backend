@@ -85,17 +85,6 @@
             <artifactId>google-cloud-dialogflow</artifactId>
             <version>3.1.0</version>
         </dependency>
-        <dependencyManagement>
-            <dependencies>
-                <dependency>
-                    <groupId>com.google.cloud</groupId>
-                    <artifactId>libraries-bom</artifactId>
-                    <version>20.4.0</version>
-                    <type>pom</type>
-                    <scope>import</scope>
-                </dependency>
-            </dependencies>
-        </dependencyManagement>
     </dependencies>
 
     <build>
