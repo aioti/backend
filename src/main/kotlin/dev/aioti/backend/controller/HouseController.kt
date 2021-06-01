@@ -2,6 +2,7 @@ package dev.aioti.backend.controller
 
 import dev.aioti.backend.dto.CurrentUserDTO
 import dev.aioti.backend.dto.request.HouseRequestDTO
+import dev.aioti.backend.dto.request.PermitUserDTO
 import dev.aioti.backend.service.HouseService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -36,9 +37,9 @@ class HouseController(
     fun delete(@PathVariable id: Long) =
         ResponseEntity.ok(service.delete(id, currentUserDTO.user))
 
-    @PutMapping("/{houseId}/user/{userId}")
-    fun permitUser(@PathVariable houseId: Long, @PathVariable userId: Long) =
-        ResponseEntity.ok(service.permitUser(houseId, userId, currentUserDTO.user))
+    @PutMapping("/{houseId}/user")
+    fun permitUser(@PathVariable houseId: Long, @RequestBody permitUserDTO: PermitUserDTO) =
+        ResponseEntity.ok(service.permitUser(houseId, permitUserDTO.email, currentUserDTO.user))
 
     @DeleteMapping("/{houseId}/user/{userId}")
     fun revokeUser(@PathVariable houseId: Long, @PathVariable userId: Long) =
