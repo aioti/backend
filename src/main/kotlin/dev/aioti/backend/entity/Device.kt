@@ -1,6 +1,8 @@
 package dev.aioti.backend.entity
 
 import dev.aioti.backend.dto.request.DeviceRegisterRequestDTO
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*
 
 @Entity
@@ -23,7 +25,9 @@ class Device(
     @Column(name = "UUID_DEVICE")
     val uuid: String?,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH])
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "ID_HOUSE")
     var house: House?
 ) {
     constructor(requestDTO: DeviceRegisterRequestDTO, user: User) : this(

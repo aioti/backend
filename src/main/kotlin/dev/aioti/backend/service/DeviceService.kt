@@ -1,19 +1,19 @@
 package dev.aioti.backend.service
 
-import dev.aioti.backend.dto.CurrentUserDTO
 import dev.aioti.backend.dto.request.DeviceRegisterRequestDTO
 import dev.aioti.backend.entity.Device
 import dev.aioti.backend.entity.User
 import dev.aioti.backend.exception.NotFoundException
 import dev.aioti.backend.respository.DeviceRepository
 import dev.aioti.backend.respository.DeviceCategoryRepository
+import dev.aioti.backend.respository.HouseRepository
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class DeviceService(
     private val deviceRepository: DeviceRepository,
-    private val categoryRepository: DeviceCategoryRepository
+    private val categoryRepository: DeviceCategoryRepository,
+    private val houseRepository: HouseRepository
 ) {
     fun create(requestDTO: DeviceRegisterRequestDTO, user: User): Device {
 
@@ -54,5 +54,14 @@ class DeviceService(
         return deviceRepository.save(device)
     }
 
-    fun delete(id: Long, user: User) = deviceRepository.deleteByIdAndUser(id, user)
+    fun delete(id: Long, user: User) {
+        val houses = houseRepository.findByDeviceId(id)
+
+        houses.forEach { house ->
+            house.devices.removeAll { device -> device.id == id }
+        }
+
+        houseRepository.saveAll(houses)
+        deviceRepository.deleteByIdAndUser(id, user)
+    }
 }

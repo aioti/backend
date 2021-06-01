@@ -23,8 +23,8 @@ class HouseService(
 
     fun delete(id: Long, user: User) = houseRepository.removeByIdAndUser(id, user)
 
-    fun permitUser(houseId: Long, userId: Long, user: User) {
-        val (house, permittedUser) = findHouseByIdAndUser(houseId, userId, user)
+    fun permitUser(houseId: Long, userEmail: String, user: User) {
+        val (house, permittedUser) = findHouseByIdAndUser(houseId, userEmail, user)
 
         house.usersPermitted.add(permittedUser)
         houseRepository.save(house)
@@ -35,6 +35,22 @@ class HouseService(
 
         house.usersPermitted.remove(permittedUser)
         houseRepository.save(house)
+    }
+
+    private fun findHouseByIdAndUser(
+        houseId: Long,
+        userEmail: String,
+        user: User
+    ): Pair<House, User> {
+        val house = houseRepository.findByIdAndUser(houseId, user)
+        val permittedUser = userRepository.findByEmail(userEmail)
+
+        if (house == null)
+            throw NotFoundException("Casa não encontrada")
+        if (permittedUser == null)
+            throw NotFoundException("Usuário não encontrado")
+
+        return Pair(house, permittedUser)
     }
 
     private fun findHouseByIdAndUser(

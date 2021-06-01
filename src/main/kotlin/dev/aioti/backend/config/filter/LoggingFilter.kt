@@ -1,7 +1,7 @@
 package dev.aioti.backend.config.filter
 
 import com.google.gson.GsonBuilder
-import io.grpc.internal.JsonParser
+import com.google.gson.JsonParser
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.util.ContentCachingRequestWrapper
@@ -76,7 +76,8 @@ class LoggingFilter : OncePerRequestFilter() {
     private fun logContent(byteArray: ByteArray, encoding: String) {
         try {
             val content = String(byteArray, Charset.forName(encoding))
-            println(GsonBuilder().setPrettyPrinting().create().toJson(JsonParser.parse(content)))
+            if (content.isNotBlank())
+                println(GsonBuilder().setPrettyPrinting().create().toJson(JsonParser().parse(content)))
         } catch (e: Exception) {}
     }
 }

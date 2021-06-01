@@ -25,4 +25,7 @@ class DeviceTypeController(
     @GetMapping
     fun deviceTypes() = ResponseEntity.ok(service.deviceTypes())
 
+    @GetMapping("/{name}")
+    fun deviceByName(@PathVariable name: String) = ResponseEntity.ok(service.deviceByName(name))
+
 }

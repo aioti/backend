@@ -28,4 +28,5 @@ class DeviceCategoryService(
     }
 
     fun deviceTypes(): List<DeviceCategory?> = deviceCategoryRepository.findAll()
+    fun deviceByName(name: String) = deviceCategoryRepository.findByName(name)
 }
