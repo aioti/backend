@@ -2,6 +2,7 @@ package dev.aioti.backend.service
 
 import dev.aioti.backend.dto.request.UserRegisterRequestDTO
 import dev.aioti.backend.entity.User
+import dev.aioti.backend.exception.NotFoundException
 import dev.aioti.backend.respository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -26,5 +27,5 @@ class UserService(
         return repository.save(user)
     }
 
-    fun getUserByEmail(email: String) = repository.findByEmail(email)
+    fun getUserByEmail(email: String) = repository.findByEmail(email) ?: throw NotFoundException ("Usuário não encontrado")
 }
