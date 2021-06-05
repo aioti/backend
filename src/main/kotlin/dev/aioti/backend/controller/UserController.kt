@@ -16,4 +16,6 @@ class UserController(
     fun register(@RequestBody userRequestDTO: UserRegisterRequestDTO, @RequestHeader authorization: String) =
         ResponseEntity(service.register(userRequestDTO, authorization), HttpStatus.CREATED)
 
+    @GetMapping ("/{email}")
+    fun getByEmail (@PathVariable email: String) = service.getUserByEmail(email)
 }
