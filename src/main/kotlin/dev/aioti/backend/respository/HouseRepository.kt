@@ -13,7 +13,7 @@ interface HouseRepository : JpaRepository<House?, Long?> {
 
     @Query("SELECT h.id AS id, h.name AS name, h.location AS location, h.user AS user " +
             "FROM House h " +
-            "LEFT JOIN h.usersPermitted u " +
+            "LEFT JOIN FETCH h.usersPermitted u " +
             "WHERE u = ?1 or h.user = ?1")
     fun findByUser(user: User): List<HouseResponseDTO>
 
