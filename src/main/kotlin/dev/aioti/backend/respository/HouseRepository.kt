@@ -11,10 +11,10 @@ import javax.transaction.Transactional
 
 interface HouseRepository : JpaRepository<House?, Long?> {
 
-    @Query("SELECT h.id AS id, h.name AS name, h.location AS location, h.user AS user " +
-            "FROM House h " +
-            "LEFT JOIN FETCH h.usersPermitted u " +
-            "WHERE u = ?1 or h.user = ?1")
+    @Query("SELECT h FROM House h " +
+            "LEFT JOIN h.usersPermitted u " +
+            "WHERE u = ?1 or h.user = ?1" +
+            "GROUP BY h")
     fun findByUser(user: User): List<HouseResponseDTO>
 
     @Query("SELECT h FROM House h " +
